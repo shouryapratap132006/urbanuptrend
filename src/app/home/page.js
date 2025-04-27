@@ -1,5 +1,5 @@
 "use client";
-
+import { FaTshirt, FaTruck, FaHeadset } from "react-icons/fa"; 
 import Image from "next/image";
 
 const Home = () => {
@@ -70,6 +70,52 @@ const Home = () => {
     100% { transform: translateX(-50%); }
   }
 `}</style>
+
+
+<div className="w-full mt-20 px-4 md:px-12 text-center">
+  <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide">
+    Why <span className="text-yellow-500">UrbanUptrend</span>?
+  </h2>
+  <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
+    Your style journey starts here — curated trends, fast deliveries, and unmatched support.
+  </p>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+    
+    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
+        <FaTshirt className="text-3xl" />
+      </div>
+      <h3 className="text-xl font-bold mb-2 text-gray-900">Trendy Collections</h3>
+      <p className="text-gray-600 text-sm">
+        Fresh, modern styles curated for every season and every vibe.
+      </p>
+    </div>
+
+    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
+        <FaTruck className="text-3xl" />
+      </div>
+      <h3 className="text-xl font-bold mb-2 text-gray-900">Quick Delivery</h3>
+      <p className="text-gray-600 text-sm">
+        Swift and safe delivery to bring fashion faster to your doorstep.
+      </p>
+    </div>
+
+    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
+        <FaHeadset className="text-3xl" />
+      </div>
+      <h3 className="text-xl font-bold mb-2 text-gray-900">24/7 Support</h3>
+      <p className="text-gray-600 text-sm">
+        Always here for you — any question, anytime, anywhere.
+      </p>
+    </div>
+    
+
+  </div>
+</div>
+
 
 
     </div>
