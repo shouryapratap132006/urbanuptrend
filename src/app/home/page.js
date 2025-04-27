@@ -1,8 +1,9 @@
 "use client";
-import { FaTshirt, FaTruck, FaHeadset } from "react-icons/fa"; 
-import { FaSearch, FaHeart, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
-import Image from "next/image";
 
+import Image from "next/image";
+import { FaTshirt, FaTruck, FaHeadset } from "react-icons/fa";
+import { FaSearch, FaHeart, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
+import { motion } from "framer-motion";
 const Home = () => {
   const posters = [
     "/assets/p1.png",
@@ -11,6 +12,14 @@ const Home = () => {
     "/assets/p4.png",
     "/assets/p5.png",
     "/assets/p6.png",
+  ];
+
+  const steps = [
+    { icon: <FaSearch className="text-3xl" />, title: "Browse", description: "Explore thousands of fresh designs." },
+    { icon: <FaTshirt className="text-3xl" />, title: "Select", description: "Pick your perfect outfit." },
+    { icon: <FaHeart className="text-3xl" />, title: "Wishlist", description: "Save your favorites for later." },
+    { icon: <FaShoppingCart className="text-3xl" />, title: "Checkout", description: "Easy and secure payments." },
+    { icon: <FaBoxOpen className="text-3xl" />, title: "Delivered", description: "Get your style at your doorstep!" },
   ];
 
   return (
@@ -72,7 +81,6 @@ const Home = () => {
   }
 `}</style>
 
-
 <div className="w-full mt-20 px-4 md:px-12 text-center">
   <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide">
     Why <span className="text-yellow-500">UrbanUptrend</span>?
@@ -81,9 +89,17 @@ const Home = () => {
     Your style journey starts here — curated trends, fast deliveries, and unmatched support.
   </p>
 
+  {/* Cards Section */}
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-    
-    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+
+    {/* Card 1 */}
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+    >
       <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
         <FaTshirt className="text-3xl" />
       </div>
@@ -91,9 +107,16 @@ const Home = () => {
       <p className="text-gray-600 text-sm">
         Fresh, modern styles curated for every season and every vibe.
       </p>
-    </div>
+    </motion.div>
 
-    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+    {/* Card 2 */}
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+      className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+    >
       <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
         <FaTruck className="text-3xl" />
       </div>
@@ -101,9 +124,16 @@ const Home = () => {
       <p className="text-gray-600 text-sm">
         Swift and safe delivery to bring fashion faster to your doorstep.
       </p>
-    </div>
+    </motion.div>
 
-    <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-500">
+    {/* Card 3 */}
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+      className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm"
+    >
       <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-yellow-100 text-yellow-500 rounded-full">
         <FaHeadset className="text-3xl" />
       </div>
@@ -111,66 +141,46 @@ const Home = () => {
       <p className="text-gray-600 text-sm">
         Always here for you — any question, anytime, anywhere.
       </p>
-    </div>
-
-
-<div className="w-full mt-20 px-4 md:px-12 text-center">
-  <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide">
-    How It Works
-  </h2>
-  <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
-    Your dream style delivered to your doorstep — simple, fast, and delightful.
-  </p>
-
-  <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mt-16">
-    
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
-        <FaSearch className="text-2xl" />
-      </div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Browse</h4>
-      <p className="text-sm text-gray-600">Explore thousands of fresh designs.</p>
-    </div>
-
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
-        <FaTshirt className="text-2xl" />
-      </div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Select</h4>
-      <p className="text-sm text-gray-600">Pick your perfect outfit.</p>
-    </div>
-
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
-        <FaHeart className="text-2xl" />
-      </div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Wishlist</h4>
-      <p className="text-sm text-gray-600">Save your favorites for later.</p>
-    </div>
-
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
-        <FaShoppingCart className="text-2xl" />
-      </div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Checkout</h4>
-      <p className="text-sm text-gray-600">Easy and secure payments.</p>
-    </div>
-
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center w-16 h-16 bg-yellow-100 text-yellow-500 rounded-full mb-4">
-        <FaBoxOpen className="text-2xl" />
-      </div>
-      <h4 className="text-lg font-semibold text-gray-900 mb-2">Delivered</h4>
-      <p className="text-sm text-gray-600">Get your style at your doorstep!</p>
-    </div>
+    </motion.div>
 
   </div>
 </div>
 
 
 
-  </div>
-</div>
+    <div className="w-full bg-white mt-20 px-4 md:px-12 text-center">
+      <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide">
+        How It Works
+      </h2>
+      <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
+        Your dream style delivered to your doorstep — simple, fast, and delightful.
+      </p>
+
+      {/* Steps Section */}
+      <div className="w-full mt-16 flex justify-center">
+        <div className="flex flex-nowrap justify-start gap-10 md:gap-16 max-w-full overflow-x-auto px-4">
+
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              className="flex flex-col items-center min-w-[150px] md:min-w-[200px]"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <div className="flex items-center justify-center w-20 h-20 bg-yellow-100 text-yellow-500 rounded-full mb-4">
+                {step.icon}
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h4>
+              <p className="text-sm text-gray-600 text-center">{step.description}</p>
+            </motion.div>
+          ))}
+
+        </div>
+      </div>
+    </div>
+
 
 
 
