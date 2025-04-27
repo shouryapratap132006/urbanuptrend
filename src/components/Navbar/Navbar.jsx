@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { FaHeart, FaShoppingCart, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaUserCircle, FaBars, FaTimes, FaLock } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -153,49 +154,75 @@ const Navbar = () => {
           )}
         </div>
       )}
-
       {/* Auth Form */}
       {showAuthForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-8 border border-gray-300 rounded-xl shadow-2xl w-96 space-y-6 animate-fade-in text-gray-900">
-            <h2 className="text-3xl font-extrabold text-center">{isSignup ? "Sign Up" : "Log In"}</h2>
+            <h2 className="text-3xl font-extrabold text-center flex items-center justify-center gap-2">
+              {isSignup ? (
+                <>
+                  <FaUserCircle className="text-yellow-500" /> Sign Up
+                </>
+              ) : (
+                <>
+                  <FaUserCircle className="text-yellow-500" /> Log In
+                </>
+              )}
+            </h2>
+            <p className="text-center text-gray-500 text-sm">
+              {isSignup
+                ? "Create an account to enjoy exclusive offers!"
+                : "Welcome back! Please log in to continue."}
+            </p>
+
             <form onSubmit={handleAuthSubmit} className="space-y-4">
               {isSignup && (
+                <div className="relative">
+                  <FaUserCircle className="absolute top-3 left-3 text-gray-400" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full pl-10 pr-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    required
+                  />
+                </div>
+              )}
+              <div className="relative">
+                <FaUserCircle className="absolute top-3 left-3 text-gray-400" />
                 <input
-                  type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  value={formData.name}
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="w-full pl-10 pr-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   required
                 />
-              )}
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                required
-              />
+              </div>
+              <div className="relative">
+                <FaLock className="absolute top-3 left-3 text-gray-400" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full pl-10 pr-4 py-2 border rounded text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  required
+                />
+              </div>
+
               <button
                 type="submit"
-                className="w-full bg-yellow-500 text-black py-2 font-bold hover:bg-yellow-400 transition-all"
+                className="w-full bg-yellow-500 text-black py-2 font-bold hover:bg-yellow-400 transition-all rounded-lg"
               >
-                {isSignup ? "Sign Up" : "Log In"}
+                {isSignup ? "Create Account" : "Login"}
               </button>
             </form>
+
             <div className="flex justify-between items-center pt-2 text-sm">
               <button
                 onClick={() => setShowAuthForm(false)}
@@ -213,6 +240,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
     </>
   );
 };
