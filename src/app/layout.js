@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar/Navbar";
 import './globals.css';
-import Home from "./page";
+
 
 export const metadata = {
   title: "Create Next App",
