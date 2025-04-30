@@ -101,7 +101,6 @@ const BlogPage = () => {
                 </div>
             </div>
 
-            {/* Featured Article */}
             <section className="w-full py-20 px-4 md:px-12 bg-yellow-50">
                 <motion.div
                     className="flex flex-col md:flex-row items-center gap-10"
@@ -171,6 +170,7 @@ const BlogPage = () => {
                         </motion.div>
                     ))}
                 </div>
+
             </section>
 
             <Footer />
