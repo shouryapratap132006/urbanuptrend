@@ -5,6 +5,7 @@ import { FaTshirt, FaTruck, FaHeadset, FaSearch, FaHeart, FaShoppingCart, FaBoxO
 import { motion } from "framer-motion";
 import Testimonials from "@/src/components/Testimonials/Testimonials";
 import Footer from "@/src/components/Footer/Footer";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const posters = [
@@ -48,6 +49,12 @@ const Home = () => {
       detail: "We ship quickly and safely — unbox happiness in just a few days."
     },
   ];
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/products");
+  };
   
 
   return (
@@ -98,9 +105,12 @@ const Home = () => {
       </div>
 
       <div className="flex items-center justify-center mt-10 mb-16">
-        <button className="px-8 py-3 bg-yellow-500 text-black text-lg font-bold rounded-md hover:bg-yellow-400 transition-all">
-          Shop Now
-        </button>
+      <button
+      onClick={handleClick}
+      className="px-8 py-3 bg-yellow-500 text-black text-lg font-bold rounded-md hover:bg-yellow-400 transition-all"
+    >
+      Shop Now
+    </button>
       </div>
 
       <style jsx>{`
@@ -112,7 +122,7 @@ const Home = () => {
 
 <div className="w-full bg-gradient-to-br from-yellow-50 via-white to-yellow-100 pt-20 pb-24 px-4 md:px-12 text-center">
   <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide relative inline-block">
-    How It Works
+    How <span className="text-yellow-500">UrbanUptrend</span> Works
     <span className="block w-24 h-1 bg-yellow-400 mt-3 mx-auto rounded-full"></span>
   </h2>
 
@@ -153,6 +163,7 @@ const Home = () => {
       <div className="w-full bg-white pt-20 pb-28 px-4 md:px-12 text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide">
           Why <span className="text-yellow-500">UrbanUptrend</span>?
+          <span className="block w-24 h-1 bg-yellow-400 mt-3 mx-auto rounded-full"></span>
         </h2>
         <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
           Your style journey starts here — curated trends, fast deliveries, and unmatched support.

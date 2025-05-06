@@ -63,12 +63,11 @@ const Navbar = () => {
   return (
     <>
       <nav className="flex items-center justify-between px-8 py-5 shadow-md bg-white text-yellow-500 sticky top-0 z-40">
-        {/* Logo */}
+
         <div className="text-3xl font-extrabold tracking-wide text-black">
           Urban<span className="text-yellow-500">Up</span>trend
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={toggleMenu}>
             {menuOpen ? (
@@ -79,7 +78,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-10 text-lg text-gray-950">
           <Link href="/home" className="hover:text-yellow-500 transition-all duration-300">Home</Link>
           <Link href="/about" className="hover:text-yellow-500 transition-all duration-300">About</Link>
@@ -87,7 +85,6 @@ const Navbar = () => {
           <Link href="/blog" className="hover:text-yellow-500 transition-all duration-300">Blog</Link>
         </div>
 
-        {/* Icons and Auth */}
         <div className="hidden md:flex items-center gap-6 relative">
           <button><FaHeart className="text-2xl text-amber-300 hover:text-yellow-500 transition-all" /></button>
           <button><FaShoppingCart className="text-2xl text-amber-300 hover:text-yellow-500 transition-all" /></button>
@@ -122,8 +119,6 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-
-      {/* Mobile Menu */}
       {menuOpen && (
         <div className="flex flex-col items-center gap-4 py-6 bg-white text-gray-950 text-lg font-semibold shadow-md md:hidden w-full">
           <Link href="/" className="hover:text-yellow-500" onClick={toggleMenu}>Home</Link>
@@ -154,7 +149,6 @@ const Navbar = () => {
           )}
         </div>
       )}
-      {/* Auth Form */}
       {showAuthForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-8 border border-gray-300 rounded-xl shadow-2xl w-96 space-y-6 animate-fade-in text-gray-900">

@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaLinkedin, FaInstagram, FaTwitter ,FaAward } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaTwitter } from "react-icons/fa";
 import Footer from "@/src/components/Footer/Footer";
 
-// Example Employees
 const employees = [
   {
     name: "John Doe",
@@ -22,7 +21,7 @@ const employees = [
     image: "/assets/emp1.png",
     description: "Leading our creative vision with innovation and passion.",
     linkedin: "https://linkedin.com/in/johndoe",
-    instagram: "https://instagram.com/johndoe",
+    instagram: "https://instagram.com/guharrasuli",
     twitter: "https://twitter.com/johndoe",
   },
   {
@@ -31,7 +30,7 @@ const employees = [
     image: "/assets/emp3.png",
     description: "Tech wizard making magic happen behind the scenes.",
     linkedin: "https://linkedin.com/in/johndoe",
-    instagram: "https://instagram.com/johndoe",
+    instagram: "https://instagram.com/harmionegranger",
     twitter: "https://twitter.com/johndoe",
   },
   {
@@ -47,60 +46,78 @@ const employees = [
 
 const About = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full overflow-hidden">
-
-      <div className="relative w-full h-screen flex items-center justify-start px-4 md:px-12">
-  <Image
-    src="/assets/about-hero.jpg" 
-    alt="UrbanUptrend Background"
-    fill
-    className="object-cover opacity-100"
-  />
-  <div className="relative z-10 w-full md:w-1/2 flex flex-col justify-center">
-    <motion.h1
-      className="text-4xl md:text-7xl font-extrabold text-gray-900 tracking-wide"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-    >
-      UrbanUptrend
-    </motion.h1>
-    <motion.p
-      className="text-lg md:text-2xl text-gray-700 mt-6"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.5 }}
-    >
-      "Fashion is the armor to survive the reality of everyday life."
-    </motion.p>
-    <motion.p
-      className="text-base md:text-xl text-gray-600 mt-6"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.8 }}
-    >
-      At UrbanUptrend, we believe in creating style experiences that empower you. 
-      From trendy essentials to statement pieces, our collections are curated for 
-      the bold, the passionate, and the fearless.
-    </motion.p>
-  </div>
-</div>
-
-      <div className="w-full bg-white py-24 px-4 md:px-12 text-center">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+    <div className="w-full min-h-screen bg-white">
+      <section className="py-20 px-6 md:px-20 bg-gradient-to-t from-0% via-yellow-100 text-center">
+        <motion.h1
+          className="text-5xl md:text-6xl font-extrabold text-gray-900"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
         >
-          Our Journey
-        </motion.h2>
-        <p className="mt-6 text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-          From a small dream to a global trendsetter — UrbanUptrend started as a passion project to redefine modern fashion. Today, we’re proud to style thousands across the world, blending creativity, quality, and culture.
+          About us
+        </motion.h1>
+        <p className="mt-4 max-w-2xl mx-auto text-gray-700 text-lg">
+          We create style experiences that empower you — from statement pieces to essentials curated for the bold and fearless.
         </p>
-      </div>
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 justify-center">
+          {["/assets/hero1.jpg", "/assets/hero2.jpg", "/assets/hero3.jpg", "/assets/hero4.jpg"].map((src, i) => (
+            <Image key={i} src={src} alt={`team-${i}`} width={300} height={200} className="rounded-xl object-cover" />
+          ))}
+        </div>
+      </section>
 
-      {/* Vision and Mission Section */}
+      <section className="py-20 px-6 md:px-20 bg-white">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              We make sure your idea & creation delivered properly
+            </h2>
+            <p className="text-gray-700 mb-4">
+              We believe in executing creative visions to perfection — ensuring every design aligns with quality, trend, and purpose.
+            </p>
+            <p className="text-gray-700">
+              Our streamlined process and dedicated team bring each concept to life with accuracy, creativity, and passion.
+            </p>
+          </div>
+          <div className="relative w-full h-72 md:h-96">
+            <Image
+              src="/assets/impact.jpg"
+              alt="Impact"
+              fill
+              className="object-cover rounded-2xl"
+            />
+            <div className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow text-gray-800">
+              "Making an impact, together" — UrbanUptrend Founder
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-6 md:px-20 bg-gray-50">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="w-full h-72 md:h-96 relative">
+            <Image
+              src="/assets/sme.jpg"
+              alt="Empowerment"
+              fill
+              className="object-cover rounded-2xl"
+            />
+          </div>
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              We empower small business owners
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Our platform uplifts creative entrepreneurs, helping them bring bold fashion ideas into the spotlight through support and visibility.
+            </p>
+            <blockquote className="border-l-4 border-yellow-500 pl-4 italic text-gray-600">
+              "UrbanUptrend helps me turn my style dreams into reality."
+            </blockquote>
+          </div>
+          
+        </div>
+      </section>
+
       <div className="w-full bg-gray-50 py-24 px-4 md:px-12 text-center">
         <motion.h2
           className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide"
@@ -134,111 +151,100 @@ const About = () => {
         </div>
       </div>
 
-      {/* Meet the Team Section */}
-      <div className="relative w-full bg-white py-28 px-4 md:px-12 text-center">
+
+      {/* Our Journey */}
+      <section className="py-20 px-6 md:px-20 bg-yellow-50 text-center">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">Our Journey</h2>
+        <p className="max-w-3xl mx-auto text-lg text-gray-700">
+          From a passionate team in a small studio to a nationwide movement in fashion, our journey has always been about authenticity, bold creativity, and community-driven growth.
+        </p>
+      </section>
+
+      {/* Achievements */}
+      <section className="py-20 px-6 md:px-20 bg-white text-center">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">Our Achievements</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className=" rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-3xl font-bold mb-2">50K+</h3>
+            <p className="text-gray-700">Happy Customers</p>
+          </div>
+          <div className=" rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-3xl font-bold mb-2">100+</h3>
+            <p className="text-gray-700">Designs Launched</p>
+          </div>
+          <div className=" rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-3xl font-bold mb-2">25</h3>
+            <p className="text-gray-700">Team Members</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Highlights */}
+      <section className="py-20 px-6 md:px-20 bg-yellow-50 text-center">
+        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">We help businesses grow faster and bigger</h2>
+        <p className="max-w-2xl mx-auto text-lg text-gray-700 mb-16">
+          From creative strategy to execution — our support ensures your brand’s growth journey stays strong and steady.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+          <div className="bg-white rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-2xl font-semibold mb-2">Professional Team</h3>
+            <p className="text-gray-700">Experts dedicated to delivering high-quality results with creativity and precision.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-2xl font-semibold mb-2">Target Oriented</h3>
+            <p className="text-gray-700">We align our strategies with your vision to ensure measurable success.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-md">
+            <h3 className="text-yellow-500 text-2xl font-semibold mb-2">Success Guarantee</h3>
+            <p className="text-gray-700">We’re committed to your growth with processes that drive results.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section (unchanged) */}
+      <section className="py-24 px-6 md:px-20 bg-gray-50 text-center">
         <motion.h2
-          className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide"
-          initial={{ opacity: 0, y: 50 }}
+          className="text-3xl md:text-5xl font-bold text-gray-900"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           Meet Our Team
         </motion.h2>
-        <p className="mt-4 text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
-          The heart and soul behind every stitch and story.
+        <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
+          The passionate crew bringing fashion to life — one bold idea at a time.
         </p>
-
-        <div className="mt-16 flex justify-center gap-12 flex-wrap">
+        <div className="mt-14 flex justify-center flex-wrap gap-10">
           {employees.map((employee, index) => (
             <motion.div
               key={index}
-              className="w-72 bg-gray-50 rounded-3xl shadow-xl p-6 flex flex-col items-center hover:scale-105 transition-transform duration-500"
-              whileHover={{ y: -10 }}
+              className="bg-white rounded-3xl p-6 w-72 shadow-md hover:shadow-xl"
+              whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="w-36 h-36 rounded-full overflow-hidden mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-yellow-400 mx-auto mb-4">
                 <Image
                   src={employee.image}
                   alt={employee.name}
-                  width={144}
-                  height={144}
+                  width={128}
+                  height={128}
                   className="object-cover w-full h-full"
                 />
               </div>
-              <p className="text-xl font-bold text-gray-900">{employee.name}</p>
+              <h4 className="text-xl font-semibold text-gray-800">{employee.name}</h4>
               <p className="text-gray-500 mb-2">{employee.position}</p>
-              <p className="text-sm text-gray-600 mt-2 mb-4 text-center">
-                {employee.description}
-              </p>
-
-              {/* Social Links */}
-              <div className="flex gap-4 text-yellow-500 text-2xl">
-                {employee.linkedin && (
-                  <a href={employee.linkedin} target="_blank" rel="noopener noreferrer">
-                    <FaLinkedin />
-                  </a>
-                )}
-                {employee.instagram && (
-                  <a href={employee.instagram} target="_blank" rel="noopener noreferrer">
-                    <FaInstagram />
-                  </a>
-                )}
-                {employee.twitter && (
-                  <a href={employee.twitter} target="_blank" rel="noopener noreferrer">
-                    <FaTwitter />
-                  </a>
-                )}
+              <p className="text-sm text-gray-600 mb-4">{employee.description}</p>
+              <div className="flex justify-center gap-4 text-yellow-500 text-xl">
+                {employee.linkedin && <a href={employee.linkedin}><FaLinkedin /></a>}
+                {employee.instagram && <a href={employee.instagram}><FaInstagram /></a>}
+                {employee.twitter && <a href={employee.twitter}><FaTwitter /></a>}
               </div>
             </motion.div>
           ))}
         </div>
-      </div>
-       <div className="w-full bg-gray-100 py-20 px-4 md:px-12 text-center">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Our Core Values
-        </motion.h2>
-        <motion.p
-          className="text-lg md:text-xl text-gray-600 mt-4 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          At UrbanUptrend, we value creativity, sustainability, and integrity. Our goal is to constantly innovate while being mindful of our environmental impact. We aim to offer our customers not just high-quality products but also an experience that aligns with their values.
-        </motion.p>
-      </div>
+      </section>
 
-      <div className="w-full bg-white py-20 px-4 md:px-12 text-center">
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-gray-950 tracking-wide"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Our Achievements
-        </motion.h2>
-        <div className="flex justify-center gap-16 mt-12">
-          <motion.div
-            className="flex flex-col items-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <FaAward className="text-6xl text-yellow-500 mb-4" />
-            <p className="text-lg font-semibold text-gray-900 mb-4">Global Recognition</p>
-            <p className="text-sm text-gray-600 text-center">
-              We've been featured in numerous fashion magazines and online platforms for our innovative designs and fast-growing customer base.
-            </p>
-          </motion.div>
-        </div>
-      </div>
       <Footer />
-          
-
     </div>
   );
 };
