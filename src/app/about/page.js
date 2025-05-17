@@ -87,7 +87,7 @@ const About = () => {
               className="object-cover rounded-2xl"
             />
             <div className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow text-gray-800">
-              "Making an impact, together" — UrbanUptrend Founder
+              &quot;Making an impact, together&quot; — UrbanUptrend Founder
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const About = () => {
 
       <section className="py-20 px-6 md:px-20 bg-gray-50">
         <div className="grid md:grid-cols-2 gap-10 items-center">
-        <div className="w-full h-72 md:h-96 relative">
+          <div className="w-full h-72 md:h-96 relative">
             <Image
               src="/assets/sme.jpg"
               alt="Empowerment"
@@ -111,10 +111,9 @@ const About = () => {
               Our platform uplifts creative entrepreneurs, helping them bring bold fashion ideas into the spotlight through support and visibility.
             </p>
             <blockquote className="border-l-4 border-yellow-500 pl-4 italic text-gray-600">
-              "UrbanUptrend helps me turn my style dreams into reality."
+              &quot;UrbanUptrend helps me turn my style dreams into reality.&quot;
             </blockquote>
           </div>
-          
         </div>
       </section>
 
@@ -151,8 +150,6 @@ const About = () => {
         </div>
       </div>
 
-
-      {/* Our Journey */}
       <section className="py-20 px-6 md:px-20 bg-yellow-50 text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">Our Journey</h2>
         <p className="max-w-3xl mx-auto text-lg text-gray-700">
@@ -160,7 +157,6 @@ const About = () => {
         </p>
       </section>
 
-      {/* Achievements */}
       <section className="py-20 px-6 md:px-20 bg-white text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">Our Achievements</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -179,7 +175,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Feature Highlights */}
       <section className="py-20 px-6 md:px-20 bg-yellow-50 text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">We help businesses grow faster and bigger</h2>
         <p className="max-w-2xl mx-auto text-lg text-gray-700 mb-16">
@@ -201,7 +196,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section (unchanged) */}
       <section className="py-24 px-6 md:px-20 bg-gray-50 text-center">
         <motion.h2
           className="text-3xl md:text-5xl font-bold text-gray-900"
@@ -250,3 +244,4 @@ const About = () => {
 };
 
 export default About;
+
