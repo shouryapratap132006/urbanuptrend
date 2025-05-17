@@ -186,7 +186,7 @@ const Home = () => {
         </h2>
 
         <p className="text-lg md:text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
-          From browsing to unboxing — here's how your perfect fit makes its way
+          From browsing to unboxing — here&apos;s how your perfect fit makes its way
           to you.
         </p>
 
