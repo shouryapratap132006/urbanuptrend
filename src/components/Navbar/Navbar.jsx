@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaHeart, FaShoppingCart, FaUserCircle, FaBars, FaTimes, FaLock } from "react-icons/fa";
 
-
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
@@ -63,7 +62,6 @@ const Navbar = () => {
   return (
     <>
       <nav className="flex items-center justify-between px-8 py-5 shadow-md bg-white text-yellow-500 sticky top-0 z-40">
-
         <div className="text-3xl font-extrabold tracking-wide text-black">
           Urban<span className="text-yellow-500">Up</span>trend
         </div>
@@ -86,9 +84,12 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-6 relative">
-          <button><FaHeart className="text-2xl text-amber-300 hover:text-yellow-500 transition-all" /></button>
-          <button><FaShoppingCart className="text-2xl text-amber-300 hover:text-yellow-500 transition-all" /></button>
-
+          <Link href="/wishlist" className="hover:text-red-400">
+            <FaHeart className="text-2xl cursor-pointer" />
+          </Link>
+          <Link href="/cart" className="hover:text-blue-500">
+            <FaShoppingCart className="text-2xl cursor-pointer" />
+          </Link>
           {isLoggedIn ? (
             <div ref={dropdownRef} className="relative">
               <button onClick={toggleDropdown} className="flex items-center gap-2">
@@ -97,9 +98,9 @@ const Navbar = () => {
               </button>
               {showDropdown && (
                 <div className="absolute right-0 mt-2 flex flex-col bg-white text-gray-900 border border-gray-300 w-48 py-2 shadow-md z-50">
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Orders</Link>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Wishlist</Link>
-                  <Link href="#" className="block px-4 py-2 hover:bg-gray-100">Contact</Link>
+                  <Link href="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</Link>
+                  <Link href="/wishlist" className="block px-4 py-2 hover:bg-gray-100">Wishlist</Link>
+                  <Link href="/contact" className="block px-4 py-2 hover:bg-gray-100">Contact</Link>
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-red-500 hover:bg-red-100 font-semibold"
@@ -119,6 +120,7 @@ const Navbar = () => {
           )}
         </div>
       </nav>
+
       {menuOpen && (
         <div className="flex flex-col items-center gap-4 py-6 bg-white text-gray-950 text-lg font-semibold shadow-md md:hidden w-full">
           <Link href="/" className="hover:text-yellow-500" onClick={toggleMenu}>Home</Link>
@@ -126,8 +128,12 @@ const Navbar = () => {
           <Link href="/products" className="hover:text-yellow-500" onClick={toggleMenu}>Products</Link>
           <Link href="/blog" className="hover:text-yellow-500" onClick={toggleMenu}>Blog</Link>
           <div className="flex gap-4">
-            <FaHeart className="text-2xl hover:text-red-400" />
-            <FaShoppingCart className="text-2xl hover:text-blue-500" />
+            <Link href="/wishlist" className="hover:text-red-400" onClick={toggleMenu}>
+              <FaHeart className="text-2xl cursor-pointer" />
+            </Link>
+            <Link href="/cart" className="hover:text-blue-500" onClick={toggleMenu}>
+              <FaShoppingCart className="text-2xl cursor-pointer" />
+            </Link>
           </div>
           {isLoggedIn ? (
             <div className="flex flex-col items-center gap-2">
@@ -149,6 +155,7 @@ const Navbar = () => {
           )}
         </div>
       )}
+
       {showAuthForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-8 border border-gray-300 rounded-xl shadow-2xl w-96 space-y-6 animate-fade-in text-gray-900">
@@ -234,7 +241,6 @@ const Navbar = () => {
           </div>
         </div>
       )}
-
     </>
   );
 };

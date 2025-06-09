@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaInstagram, FaTwitter } from "react-icons/fa";
 import Footer from "@/src/components/Footer/Footer";
+import Testimonials from "@/src/components/Testimonials/Testimonials";
 
 const employees = [
   {
@@ -156,6 +157,7 @@ const About = () => {
           From a passionate team in a small studio to a nationwide movement in fashion, our journey has always been about authenticity, bold creativity, and community-driven growth.
         </p>
       </section>
+      <Testimonials />  
 
       <section className="py-20 px-6 md:px-20 bg-white text-center">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">Our Achievements</h2>
