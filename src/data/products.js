@@ -499,7 +499,6 @@ export const products = [
       washCare: "Do Not Bleach"
     }
   },
-  
   {
     id: 21,
     gender: "Men",
@@ -515,7 +514,15 @@ export const products = [
     colors: ["Black", "Navy"],
     tag: "WINTER READY",
     brand: "UrbanUptrend Luxe",
-    description: "Lightweight quilted vest for chilly days."
+    description: "Lightweight quilted vest for chilly days.",
+    highlights: {
+      design: "Quilted",
+      fit: "Regular Fit",
+      neck: "High Neck",
+      occasion: "Winterwear",
+      sleeve: "Sleeveless",
+      washCare: "Dry Clean Only"
+    }
   },
   {
     id: 22,
@@ -532,7 +539,15 @@ export const products = [
     colors: ["White", "Beige", "Pink"],
     tag: "SUMMER ESSENTIAL",
     brand: "UrbanUptrend Basics",
-    description: "Ribbed tank top for casual and comfy wear."
+    description: "Ribbed tank top for casual and comfy wear.",
+    highlights: {
+      design: "Solid",
+      fit: "Slim Fit",
+      neck: "Scoop Neck",
+      occasion: "Casual",
+      sleeve: "Sleeveless",
+      washCare: "Machine Wash"
+    }
   },
   {
     id: 23,
@@ -549,7 +564,15 @@ export const products = [
     colors: ["Gray", "Black", "White"],
     tag: "STREET STYLE",
     brand: "UrbanUptrend GenZ",
-    description: "Cozy hoodie with bold graphics."
+    description: "Cozy hoodie with bold graphics.",
+    highlights: {
+      design: "Graphic Print",
+      fit: "Regular Fit",
+      neck: "Hooded",
+      occasion: "Casual",
+      sleeve: "Full Sleeve",
+      washCare: "Machine Wash Cold"
+    }
   },
   {
     id: 24,
@@ -566,7 +589,15 @@ export const products = [
     colors: ["Black", "Navy Blue"],
     tag: "ATHLEISURE",
     brand: "UrbanUptrend StreetWear",
-    description: "Comfortable track pants for active days."
+    description: "Comfortable track pants for active days.",
+    highlights: {
+      design: "Solid",
+      fit: "Tapered Fit",
+      neck: null,
+      occasion: "Activewear",
+      sleeve: null,
+      washCare: "Machine Wash"
+    }
   },
   {
     id: 25,
@@ -583,7 +614,15 @@ export const products = [
     colors: ["White", "Light Pink"],
     tag: "ELEGANT",
     brand: "UrbanUptrend Luxe",
-    description: "Smooth silk blend shirt for special occasions."
+    description: "Smooth silk blend shirt for special occasions.",
+    highlights: {
+      design: "Solid",
+      fit: "Slim Fit",
+      neck: "Spread Collar",
+      occasion: "Formal",
+      sleeve: "Full Sleeve",
+      washCare: "Dry Clean Only"
+    }
   },
   {
     id: 26,
@@ -600,7 +639,15 @@ export const products = [
     colors: ["Gray", "Black"],
     tag: "COZY",
     brand: "UrbanUptrend Basics",
-    description: "Comfortable hoodie dress for casual days."
+    description: "Comfortable hoodie dress for casual days.",
+    highlights: {
+      design: "Solid",
+      fit: "Relaxed Fit",
+      neck: "Hooded",
+      occasion: "Loungewear",
+      sleeve: "Full Sleeve",
+      washCare: "Machine Wash"
+    }
   },
   {
     id: 27,
@@ -617,7 +664,15 @@ export const products = [
     colors: ["Green Camo", "Brown Camo"],
     tag: "MILITARY STYLE",
     brand: "UrbanUptrend GenZ",
-    description: "Camo tee for a rugged look."
+    description: "Camo tee for a rugged look.",
+    highlights: {
+      design: "Camouflage",
+      fit: "Regular Fit",
+      neck: "Crew Neck",
+      occasion: "Casual",
+      sleeve: "Half Sleeve",
+      washCare: "Machine Wash"
+    }
   },
   {
     id: 28,
@@ -634,7 +689,15 @@ export const products = [
     colors: ["Denim Blue", "Black"],
     tag: "CLASSIC",
     brand: "UrbanUptrend StreetWear",
-    description: "Classic denim jacket with a modern fit."
+    description: "Classic denim jacket with a modern fit.",
+    highlights: {
+      design: "Solid",
+      fit: "Regular Fit",
+      neck: "Spread Collar",
+      occasion: "Casual",
+      sleeve: "Full Sleeve",
+      washCare: "Machine Wash"
+    }
   },
   {
     id: 29,
@@ -651,7 +714,15 @@ export const products = [
     colors: ["Gray", "Black"],
     tag: "WINTER COLLECTION",
     brand: "UrbanUptrend Luxe",
-    description: "Elegant wool coat for cold seasons."
+    description: "Elegant wool coat for cold seasons.",
+    highlights: {
+      design: "Solid",
+      fit: "Slim Fit",
+      neck: "Notched Collar",
+      occasion: "Formal",
+      sleeve: "Full Sleeve",
+      washCare: "Dry Clean Only"
+    }
   },
   {
     id: 30,
@@ -668,109 +739,15 @@ export const products = [
     colors: ["Blue", "Black"],
     tag: "SUMMER READY",
     brand: "UrbanUptrend Basics",
-    description: "Comfortable denim shorts for summer days."
-  },
-    // Women's Clothing (id: 31 - 60)
-    {
-      id: 31,
-      name: "UrbanUptrend GenZ: Tie-Dye Tee",
-      gender: "Women",
-      image: "/products/tie-dye2.webp",
-      price: 499,
-      originalPrice: 999,
-      discount: 50,
-      label: "Soft Cotton Blend",
-      rating: 4.3,
-      category: "T-Shirt",
-      sizes: ["S", "M", "L"],
-      colors: ["Pink", "Blue", "Purple"],
-      tag: "TRENDING",
-      brand: "UrbanUptrend GenZ",
-      description: "Bright, fun tie-dye tee for the expressive generation."
-    },
-    {
-      id: 32,
-      name: "UrbanUptrend Luxe: Satin Cami Top",
-      gender: "Women",
-      image: "/products/satin-cami.webp",
-      price: 799,
-      originalPrice: 1399,
-      discount: 43,
-      label: "Premium Fabric",
-      rating: 4.5,
-      category: "Topwear",
-      sizes: ["XS", "S", "M"],
-      colors: ["White", "Cream"],
-      tag: "LIMITED EDITION",
-      brand: "UrbanUptrend Luxe",
-      description: "Elegant satin cami top perfect for a luxe evening look."
-    },
-    {
-      id: 33,
-      name: "UrbanUptrend Basics: Crop Hoodie",
-      gender: "Women",
-      image: "/products/crop-hoodie.webp",
-      price: 999,
-      originalPrice: 1999,
-      discount: 50,
-      label: "100% Cotton",
-      rating: 4.1,
-      category: "Hoodie",
-      sizes: ["S", "M", "L", "XL"],
-      colors: ["Black", "Pink"],
-      tag: "OVERSIZED",
-      brand: "UrbanUptrend Basics",
-      description: "Casual cropped hoodie for your daily comfort and style."
-    },
-    {
-      id: 34,
-      name: "UrbanUptrend StreetWear: Oversized Graphic Tee",
-      gender: "Women",
-      image: "/products/oversized-graphic.webp",
-      price: 699,
-      originalPrice: 1499,
-      discount: 53,
-      label: "Organic Blend",
-      rating: 4.2,
-      category: "T-Shirt",
-      sizes: ["M", "L", "XL"],
-      colors: ["White", "Lavender"],
-      tag: "BOXY FIT",
-      brand: "UrbanUptrend StreetWear",
-      description: "Statement oversized tee with street-inspired graphics."
-    },
-    {
-      id: 35,
-      name: "UrbanUptrend Luxe: Wrap Dress",
-      gender: "Women",
-      image: "/products/wrap-dress.webp",
-      price: 1399,
-      originalPrice: 2299,
-      discount: 39,
-      label: "Premium Fabric",
-      rating: 4.6,
-      category: "Dress",
-      sizes: ["S", "M", "L"],
-      colors: ["Red", "Beige"],
-      tag: "TRENDING",
-      brand: "UrbanUptrend Luxe",
-      description: "Chic wrap dress with flattering silhouette and soft fabric."
-    },
-    {
-      id: 36,
-      name: "UrbanUptrend GenZ: Floral Blouse",
-      gender: "Women",
-      image: "/products/floral-blouse.webp",
-      price: 899,
-      originalPrice: 1599,
-      discount: 44,
-      label: "Recycled Cotton",
-      rating: 4.4,
-      category: "Topwear",
-      sizes: ["XS", "S", "M", "L"],
-      colors: ["Pink", "Cream", "Lavender"],
-      tag: "TRENDING",
-      brand: "UrbanUptrend GenZ",
-      description: "Breezy floral blouse for your weekend getaways."
+    description: "Comfortable denim shorts for summer days.",
+    highlights: {
+      design: "Solid",
+      fit: "Regular Fit",
+      neck: null,
+      occasion: "Casual",
+      sleeve: null,
+      washCare: "Machine Wash"
     }
+  }
+  
 ];
