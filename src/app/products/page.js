@@ -6,10 +6,14 @@ import ProductCard from '@/src/components/ProductCard';
 import Filters from '@/src/components/Filters';
 import { ChevronRight } from 'lucide-react';
 import Footer from '@/src/components/Footer/Footer';
+import {
+  getWishlist,
+  addToWishlist as addToWishlistDB,
+  removeFromWishlist as removeFromWishlistDB,
+} from '@/src/firebase/dbUtils';
 
 export default function ProductsPage() {
   const [gender, setGender] = useState('Men');
-
   const [filters, setFilters] = useState({
     category: '',
     sizes: [],
@@ -28,23 +32,26 @@ export default function ProductsPage() {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem('wishlist');
-    if (stored) setWishlist(JSON.parse(stored));
+    const fetchWishlist = async () => {
+      const data = await getWishlist();
+      setWishlist(data || []);
+    };
+    fetchWishlist();
   }, []);
 
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
 
-  const addToWishlist = (product) => {
+  const addToWishlist = async (product) => {
     if (isInWishlist(product.id)) return;
-    const updated = [...wishlist, product];
-    setWishlist(updated);
-    localStorage.setItem('wishlist', JSON.stringify(updated));
+    await addToWishlistDB(product);
+    const updated = await getWishlist();
+    setWishlist(updated || []);
   };
 
-  const removeFromWishlist = (id) => {
-    const updated = wishlist.filter((item) => item.id !== id);
-    setWishlist(updated);
-    localStorage.setItem('wishlist', JSON.stringify(updated));
+  const removeFromWishlist = async (id) => {
+    await removeFromWishlistDB(id);
+    const updated = await getWishlist();
+    setWishlist(updated || []);
   };
 
   const filteredProducts = useMemo(() => {
@@ -76,14 +83,14 @@ export default function ProductsPage() {
     }
 
     if (filters.sizes.length > 0) {
-      result = result.filter((p) =>
-        Array.isArray(p.sizes) && p.sizes.some((size) => filters.sizes.includes(size))
+      result = result.filter(
+        (p) => Array.isArray(p.sizes) && p.sizes.some((size) => filters.sizes.includes(size))
       );
     }
 
     if (filters.colors.length > 0) {
-      result = result.filter((p) =>
-        Array.isArray(p.colors) && p.colors.some((color) => filters.colors.includes(color))
+      result = result.filter(
+        (p) => Array.isArray(p.colors) && p.colors.some((color) => filters.colors.includes(color))
       );
     }
 
@@ -97,13 +104,16 @@ export default function ProductsPage() {
 
     if (filters.offers.length > 0) {
       result = result.filter(
-        (p) => Array.isArray(p.offers) && p.offers.some((offer) => filters.offers.includes(offer))
+        (p) =>
+          Array.isArray(p.offers) &&
+          p.offers.some((offer) => filters.offers.includes(offer))
       );
     }
 
     const priceLimit = Number(filters.price);
     result = result.filter((p) => Number(p.price) <= priceLimit);
 
+    // Sorting logic
     if (sort === 'low-to-high') {
       result.sort((a, b) => a.price - b.price);
     } else if (sort === 'high-to-low') {
@@ -119,22 +129,17 @@ export default function ProductsPage() {
         {/* Gender Toggle */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-4">
-            <button
-              className={`px-4 py-1 border rounded ${
-                gender === 'Men' ? 'bg-black text-white' : 'bg-white text-black'
-              }`}
-              onClick={() => setGender('Men')}
-            >
-              Men
-            </button>
-            <button
-              className={`px-4 py-1 border rounded ${
-                gender === 'Women' ? 'bg-black text-white' : 'bg-white text-black'
-              }`}
-              onClick={() => setGender('Women')}
-            >
-              Women
-            </button>
+            {['Men', 'Women'].map((g) => (
+              <button
+                key={g}
+                className={`px-4 py-1 border rounded ${
+                  gender === g ? 'bg-black text-white' : 'bg-white text-black'
+                }`}
+                onClick={() => setGender(g)}
+              >
+                {g}
+              </button>
+            ))}
           </div>
 
           <div className="flex items-center gap-2">
@@ -168,13 +173,14 @@ export default function ProductsPage() {
           </span>
         </h2>
 
+        {/* Layout */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Filters Sidebar */}
           <aside className="hidden md:block">
             <Filters filters={filters} setFilters={setFilters} />
           </aside>
 
-          {/* Products Grid */}
+          {/* Product Cards */}
           <section className="md:col-span-3 grid grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => (
@@ -194,6 +200,7 @@ export default function ProductsPage() {
           </section>
         </div>
       </div>
+
       <Footer />
     </>
   );

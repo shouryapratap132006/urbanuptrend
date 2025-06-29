@@ -3,10 +3,19 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaHeart, FaShoppingCart, FaUserCircle, FaBars, FaTimes, FaLock } from "react-icons/fa";
+import { auth } from "../../firebase/firebase"; // adjust if file structure is different
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [userUid, setUserUid] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAuthForm, setShowAuthForm] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -15,16 +24,44 @@ const Navbar = () => {
 
   const dropdownRef = useRef(null);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        setUserName(user.displayName || user.email);
+        setUserUid(user.uid); 
+      } else {
+        setIsLoggedIn(false);
+        setUserName("");
+        setUserUid(""); 
+      }
+    });
+  
+    return () => unsubscribe();
+  }, []);
+  
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleAuthSubmit = (e) => {
+  const handleAuthSubmit = async (e) => {
     e.preventDefault();
-    setIsLoggedIn(true);
-    setUserName(formData.name);
-    setShowAuthForm(false);
-    setFormData({ name: "", email: "", password: "" });
+    const { name, email, password } = formData;
+
+    try {
+      if (isSignup) {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+
+      setShowAuthForm(false);
+      setFormData({ name: "", email: "", password: "" });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const openAuthForm = (signup) => {
@@ -33,7 +70,8 @@ const Navbar = () => {
     setMenuOpen(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut(auth);
     setIsLoggedIn(false);
     setUserName("");
     setMenuOpen(false);
@@ -94,10 +132,10 @@ const Navbar = () => {
             <div ref={dropdownRef} className="relative">
               <button onClick={toggleDropdown} className="flex items-center gap-2">
                 <FaUserCircle className="text-3xl text-yellow-500" />
-                <span className="hidden sm:inline font-semibold text-gray-950">{userName}</span>
               </button>
               {showDropdown && (
                 <div className="absolute right-0 mt-2 flex flex-col bg-white text-gray-900 border border-gray-300 w-48 py-2 shadow-md z-50">
+                  <span className="px-4 py-2 hidden sm:inline font-semibold text-gray-950">{userName}</span>
                   <Link href="/orders" className="block px-4 py-2 hover:bg-gray-100">Orders</Link>
                   <Link href="/wishlist" className="block px-4 py-2 hover:bg-gray-100">Wishlist</Link>
                   <Link href="/contact" className="block px-4 py-2 hover:bg-gray-100">Contact</Link>

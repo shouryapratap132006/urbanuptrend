@@ -1,44 +1,96 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
+import {
+  getCart,
+  updateCartItem,
+  removeFromCart,
+  saveOrder,
+  saveCart,
+} from '../../firebase/dbUtils';
 
 import CartItem from '../../components/CartItem';
 import PriceSummary from '../../components/PriceSummary';
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
+  const [userUid, setUserUid] = useState(null);
   const [couponApplied, setCouponApplied] = useState(false);
 
+  // 🔹 Load cart from Firebase or localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('cart');
-    if (stored) setCartItems(JSON.parse(stored));
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserUid(user.uid);
+        const data = await getCart(user.uid);
+        setCartItems(data || []);
+      } else {
+        const stored = localStorage.getItem('cart');
+        if (stored) setCartItems(JSON.parse(stored));
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const handleRemove = (id) => {
+  // 🔹 Remove Item
+  const handleRemove = async (id) => {
     const updated = cartItems.filter((item) => item.id !== id);
     setCartItems(updated);
-    localStorage.setItem('cart', JSON.stringify(updated));
+
+    if (userUid) {
+      await removeFromCart(userUid, id);
+    } else {
+      localStorage.setItem('cart', JSON.stringify(updated));
+    }
   };
 
-  const handleUpdate = (updatedItem) => {
+  // 🔹 Update Item Quantity
+  const handleUpdate = async (updatedItem) => {
     const updated = cartItems.map((item) =>
       item.id === updatedItem.id ? updatedItem : item
     );
     setCartItems(updated);
-    localStorage.setItem('cart', JSON.stringify(updated));
+
+    if (userUid) {
+      await updateCartItem(userUid, updatedItem);
+    } else {
+      localStorage.setItem('cart', JSON.stringify(updated));
+    }
   };
 
-  const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0
-  );
+  // 🔹 Place Order
+  const handlePlaceOrder = async () => {
+    const total = calculateSubtotal();
 
-  const discount = couponApplied ? Math.floor(subtotal * 0.1) : 0;
+    if (userUid) {
+      await saveOrder(userUid, cartItems, total);
+      await saveCart(userUid, []); // Clear cart
+    } else {
+      const prev = JSON.parse(localStorage.getItem('orders')) || [];
+      prev.push({
+        items: cartItems,
+        total,
+        date: new Date().toISOString(),
+      });
+      localStorage.setItem('orders', JSON.stringify(prev));
+      localStorage.removeItem('cart');
+    }
+
+    setCartItems([]);
+    alert('Order placed successfully!');
+  };
+
+  // 🔹 Subtotal, Discount & Total
+  const calculateSubtotal = () =>
+    cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+  const discount = couponApplied ? Math.floor(calculateSubtotal() * 0.1) : 0;
 
   const applyCoupon = () => {
-    if (!couponApplied) {
-      setCouponApplied(true);
-    }
+    if (!couponApplied) setCouponApplied(true);
   };
 
   return (
@@ -53,7 +105,7 @@ export default function CartPage() {
           <div className="md:col-span-2 space-y-4">
             {cartItems.map((item) => (
               <CartItem
-                key={item.id}
+                key={`${item.id}-${item.size}-${item.color}`}
                 item={item}
                 onRemove={handleRemove}
                 onUpdate={handleUpdate}
@@ -63,13 +115,15 @@ export default function CartPage() {
 
           {/* Price Summary */}
           <PriceSummary
-            subtotal={subtotal}
+            subtotal={calculateSubtotal()}
             discount={discount}
             applyCoupon={applyCoupon}
             couponApplied={couponApplied}
+            onPlaceOrder={handlePlaceOrder}
           />
         </div>
       )}
     </div>
   );
 }
+

@@ -1,35 +1,56 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import {
+  getOrders,
+  cancelOrderByIndex,
+  getCart,
+  saveCart,
+} from "../../firebase/dbUtils";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
-  const [filterBrand, setFilterBrand] = useState('');
-  const [filterDate, setFilterDate] = useState('');
+  const [filterBrand, setFilterBrand] = useState("");
+  const [filterDate, setFilterDate] = useState("");
+  const [uid, setUid] = useState(null);
 
-  // Load orders from localStorage
   useEffect(() => {
-    const stored = localStorage.getItem('orders');
-    if (stored) {
-      setOrders(JSON.parse(stored));
-    }
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUid(user.uid);
+        const data = await getOrders(user.uid); // 🔧 Pass UID
+        setOrders(data);
+      } else {
+        setUid(null);
+        setOrders([]);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const cancelOrder = (index) => {
+  const cancelOrder = async (index) => {
+    if (!uid) return;
+    await cancelOrderByIndex(uid, index); // 🔧 Pass UID
     const updated = [...orders];
     updated.splice(index, 1);
     setOrders(updated);
-    localStorage.setItem('orders', JSON.stringify(updated));
   };
 
-  const reorder = (items) => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const updatedCart = [...cart, ...items];
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    alert('Items added to your cart!');
+  const reorder = async (items) => {
+    if (!uid) {
+      alert("Please log in to reorder.");
+      return;
+    }
+
+    const existingCart = await getCart(uid); // 🔧 Pass UID
+    const updatedCart = [...existingCart, ...items];
+    await saveCart(uid, updatedCart); // 🔧 Pass UID
+    alert("Items added to your cart!");
   };
 
-  // Apply filters
   const filteredOrders = orders.filter((order) => {
     const dateMatch = filterDate
       ? new Date(order.date).toLocaleDateString() === filterDate
@@ -39,6 +60,7 @@ export default function OrdersPage() {
       : true;
     return dateMatch && brandMatch;
   });
+
   const brands = Array.from(
     new Set(
       orders.flatMap((order) =>
@@ -51,7 +73,7 @@ export default function OrdersPage() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-bold mb-6">Your Orders</h1>
 
-      {/* Filter Section */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div>
           <label className="text-sm text-gray-600 mr-2">Filter by Brand:</label>
@@ -62,7 +84,9 @@ export default function OrdersPage() {
           >
             <option value="">All</option>
             {brands.map((b) => (
-              <option key={b} value={b}>{b}</option>
+              <option key={b} value={b}>
+                {b}
+              </option>
             ))}
           </select>
         </div>
@@ -78,6 +102,7 @@ export default function OrdersPage() {
         </div>
       </div>
 
+      {/* Orders Display */}
       {filteredOrders.length === 0 ? (
         <p className="text-gray-500 text-center">No orders found.</p>
       ) : (
@@ -89,7 +114,7 @@ export default function OrdersPage() {
             >
               <div className="mb-3 flex justify-between items-center text-sm text-gray-600">
                 <span>
-                  Order Placed:{' '}
+                  Order Placed:{" "}
                   <span className="font-medium">
                     {new Date(order.date).toLocaleString()}
                   </span>

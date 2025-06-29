@@ -16,7 +16,7 @@ const Filters = ({ filters, setFilters }) => {
       {/* Category */}
       <div>
         <h4 className="font-medium mb-1">Category</h4>
-        {["T-Shirt", "Shirt", "Polo", "Hoodie", "Bottomwear","Topwear","Dress"].map((cat) => (
+        {["T-Shirt", "Shirt", "Polo", "Hoodie", "Bottomwear","Topwear","Dresses","Sweatshirts","Jeans"].map((cat) => (
           <div key={cat} className="flex items-center space-x-2">
             <input
               type="radio"

@@ -3,6 +3,15 @@
 import { useState, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import ProductCard from '../../../components/ProductCard';
+import {
+  addToWishlist as addToWishlistDB,
+  removeFromWishlist as removeFromWishlistDB,
+  getWishlist,
+  getCart,
+  saveCart,
+} from '../../../firebase/dbUtils';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../../firebase/firebase';
 
 export default function ProductDetailClient({ product, similarItems }) {
   const [selectedSize, setSelectedSize] = useState(product.sizes?.[0]);
@@ -10,31 +19,54 @@ export default function ProductDetailClient({ product, similarItems }) {
   const [showOffers, setShowOffers] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [cart, setCart] = useState([]);
+  const [uid, setUid] = useState(null);
 
+  // 🔐 Watch auth state
   useEffect(() => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    if (storedWishlist) setWishlist(JSON.parse(storedWishlist));
-
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) setCart(JSON.parse(storedCart));
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUid(user.uid);
+        const wishlistData = await getWishlist(user.uid);
+        const cartData = await getCart(user.uid);
+        setWishlist(wishlistData || []);
+        setCart(cartData || []);
+      } else {
+        // handle unauthenticated state (optional fallback to localStorage)
+        setUid(null);
+        setWishlist([]);
+        setCart([]);
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
 
-  const addToWishlist = (product) => {
+  const handleAddToWishlist = async (product) => {
+    if (!uid) {
+      alert('Please login to use wishlist.');
+      return;
+    }
+
     if (isInWishlist(product.id)) return;
-    const updated = [...wishlist, product];
+    await addToWishlistDB(uid, product);
+    const updated = await getWishlist(uid);
     setWishlist(updated);
-    localStorage.setItem('wishlist', JSON.stringify(updated));
   };
 
-  const removeFromWishlist = (id) => {
-    const updated = wishlist.filter((item) => item.id !== id);
+  const handleRemoveFromWishlist = async (id) => {
+    if (!uid) return;
+    await removeFromWishlistDB(uid, id);
+    const updated = await getWishlist(uid);
     setWishlist(updated);
-    localStorage.setItem('wishlist', JSON.stringify(updated));
   };
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    if (!uid) {
+      alert('Please login to add items to your bag.');
+      return;
+    }
+
     const cartItem = {
       id: product.id,
       name: product.name,
@@ -60,7 +92,7 @@ export default function ProductDetailClient({ product, similarItems }) {
 
     const updated = [...cart, cartItem];
     setCart(updated);
-    localStorage.setItem('cart', JSON.stringify(updated));
+    await saveCart(uid, updated);
     alert('Item added to bag!');
   };
 
@@ -81,7 +113,6 @@ export default function ProductDetailClient({ product, similarItems }) {
 
         {/* Product Info */}
         <div className="space-y-5">
-          {/* Header */}
           <div className="flex justify-between items-start">
             <h1 className="text-2xl font-semibold">{product.name}</h1>
             <Heart
@@ -90,8 +121,8 @@ export default function ProductDetailClient({ product, similarItems }) {
               }`}
               onClick={() =>
                 isInWishlist(product.id)
-                  ? removeFromWishlist(product.id)
-                  : addToWishlist(product)
+                  ? handleRemoveFromWishlist(product.id)
+                  : handleAddToWishlist(product)
               }
               fill={isInWishlist(product.id) ? 'currentColor' : 'none'}
             />
@@ -100,7 +131,6 @@ export default function ProductDetailClient({ product, similarItems }) {
           <p className="text-yellow-600">⭐ {product.rating}</p>
           <p className="text-sm text-gray-600">{product.description}</p>
 
-          {/* Price */}
           <div className="text-xl font-bold">
             ₹{product.price}
             <span className="text-gray-400 line-through ml-2 text-base">
@@ -111,7 +141,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             </span>
           </div>
 
-          {/* Offers */}
           <div>
             <button
               className="text-blue-600 text-sm underline"
@@ -128,7 +157,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             )}
           </div>
 
-          {/* Sizes */}
           <div>
             <p className="text-sm font-medium mb-1">Select Size</p>
             <div className="flex gap-2 flex-wrap">
@@ -146,7 +174,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             </div>
           </div>
 
-          {/* Colors */}
           {product.colors?.length > 0 && (
             <div>
               <p className="text-sm font-medium mb-1">Select Color</p>
@@ -165,7 +192,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             </div>
           )}
 
-          {/* Highlights */}
           <div className="mt-10 border p-5 rounded-lg">
             <h2 className="font-semibold text-lg mb-4">Key Highlights</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 text-sm">
@@ -178,7 +204,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             </div>
           </div>
 
-          {/* Return Info */}
           <div className="mt-6">
             <details className="border p-4 rounded">
               <summary className="cursor-pointer font-semibold">15 Days Return & Exchange</summary>
@@ -188,7 +213,6 @@ export default function ProductDetailClient({ product, similarItems }) {
             </details>
           </div>
 
-          {/* Add to Cart */}
           <button
             onClick={addToCart}
             className="w-full bg-yellow-400 hover:bg-yellow-500 px-6 py-2 rounded font-semibold mt-2"
@@ -207,8 +231,8 @@ export default function ProductDetailClient({ product, similarItems }) {
               key={item.id}
               product={item}
               inWishlist={isInWishlist(item.id)}
-              onAdd={addToWishlist}
-              onRemove={removeFromWishlist}
+              onAdd={handleAddToWishlist}
+              onRemove={handleRemoveFromWishlist}
             />
           ))}
         </div>
