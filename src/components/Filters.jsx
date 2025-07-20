@@ -16,7 +16,7 @@ const Filters = ({ filters, setFilters }) => {
       {/* Category */}
       <div>
         <h4 className="font-medium mb-1">Category</h4>
-        {["T-Shirt", "Shirt", "Polo", "Hoodie", "Bottomwear","Topwear","Dresses","Sweatshirts","Jeans"].map((cat) => (
+        {["T-Shirt", "Shirt", "Polo","Outerwear", "Hoodie","Ethnic", "Bottomwear","Topwear","Dresses","Sweatshirts","Jeans"].map((cat) => (
           <div key={cat} className="flex items-center space-x-2">
             <input
               type="radio"
@@ -89,7 +89,7 @@ const Filters = ({ filters, setFilters }) => {
       {/* Brand (Single) */}
       <div>
         <h4 className="font-medium mb-1">Brand</h4>
-        {["UrbanUptrend Luxe", "UrbanUptrend GenZ", "UrbanUptrend Basics", "UrbanUptrend StreetWear"].map((brand) => (
+        {["UrbanUptrend Luxe", "UrbanUptrend GenZ","UrbanUptrend Classic","UrbanUptrend Breeze", "UrbanUptrend Basics", "UrbanUptrend StreetWear","UrbanUptrend Comfy","UrbanUptrend Elegance"].map((brand) => (
           <div key={brand} className="flex items-center space-x-2">
             <input
               type="radio"
@@ -153,7 +153,7 @@ const Filters = ({ filters, setFilters }) => {
       </div>
 
       {/* Offers (Multi) */}
-      <div>
+      {/* <div>
         <h4 className="font-medium mb-1">Offers</h4>
         {["BOGO", "Flat ₹200 Off", "Buy 1 Get 1", "Free Shipping", "Clearance Sale"].map((offer) => (
           <div key={offer} className="flex items-center space-x-2">
@@ -165,10 +165,10 @@ const Filters = ({ filters, setFilters }) => {
             <label>{offer}</label>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Tags (Multi) */}
-      <div>
+      {/* <div>
         <h4 className="font-medium mb-1">Tags</h4>
         {["BUY 3 FOR 999", "LIMITED EDITION", "TRENDING", "BOXY FIT", "OVERSIZED"].map((tag) => (
           <div key={tag} className="flex items-center space-x-2">
@@ -180,7 +180,7 @@ const Filters = ({ filters, setFilters }) => {
             <label>{tag}</label>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Rating (Single) */}
       <div>
