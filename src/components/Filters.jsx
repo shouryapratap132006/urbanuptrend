@@ -74,7 +74,7 @@ const Filters = ({ filters, setFilters }) => {
       {/* Color (Multi) */}
       <div>
         <h4 className="font-medium mb-1">Color</h4>
-        {["Red", "Blue", "Green", "Black", "Yellow", "Pink", "Purple", "Cream", "White", "Orange", "Brown", "Maroon", "Grey", "Beige", "Teal", "Navy Blue", "Olive", "Turquoise", "Peach", "Lavender"].map((color) => (
+        {["Red", "Blue", "Green", "Black", "Yellow", "Pink", "Purple", "Cream", "White", "Orange", "Brown", "Maroon", "Grey", "Beige", "Teal", "Navy", "Olive", "Turquoise", "Peach", "Lavender"].map((color) => (
           <div key={color} className="flex items-center space-x-2">
             <input
               type="checkbox"
@@ -151,36 +151,6 @@ const Filters = ({ filters, setFilters }) => {
           </div>
         ))}
       </div>
-
-      {/* Offers (Multi) */}
-      {/* <div>
-        <h4 className="font-medium mb-1">Offers</h4>
-        {["BOGO", "Flat ₹200 Off", "Buy 1 Get 1", "Free Shipping", "Clearance Sale"].map((offer) => (
-          <div key={offer} className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={filters.offers?.includes(offer)}
-              onChange={() => toggleMultiSelect("offers", offer)}
-            />
-            <label>{offer}</label>
-          </div>
-        ))}
-      </div> */}
-
-      {/* Tags (Multi) */}
-      {/* <div>
-        <h4 className="font-medium mb-1">Tags</h4>
-        {["BUY 3 FOR 999", "LIMITED EDITION", "TRENDING", "BOXY FIT", "OVERSIZED"].map((tag) => (
-          <div key={tag} className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={filters.tags?.includes(tag)}
-              onChange={() => toggleMultiSelect("tags", tag)}
-            />
-            <label>{tag}</label>
-          </div>
-        ))}
-      </div> */}
 
       {/* Rating (Single) */}
       <div>
